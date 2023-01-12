@@ -1,24 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
+import AllItems from './components/AllItems';
+import Item from './components/Item';
+import SearchInp from './components/SearchInp';
+import {
+  Routes,
+  Route,
+} from "react-router-dom";
+import { useState } from 'react';
 
-function App() {
+
+const App = () => {
+  const [searchValue, setSearchValue] = useState('');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div>
+      <SearchInp searchValue={searchValue} setSearchValue={setSearchValue} />
+      <Routes>
+        <Route path='/' element={<AllItems searchValue={searchValue} />} />
+        <Route path="/item/:id" element={<Item />} />
+      </Routes>
+    </div >
   );
 }
 
