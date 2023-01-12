@@ -11,15 +11,19 @@ import { Link } from 'react-router-dom';
 import CircularIndeterminate from './Loader'
 import Highlighter from "react-highlight-words";
 import { RootState } from '../redux/store';
+import SearchInp from './SearchInp';
 
 type HomeProps = {
 	searchValue: string;
 }
 
-const AllItems: React.FC<HomeProps> = ({ searchValue }) => {
+const AllItems: React.FC<HomeProps> = () => {
+
+
 	const dispatch = useDispatch();
 	const items = useSelector((state: RootState) => state.itemSlice.items);
 	const status = useSelector((state: RootState) => state.itemSlice.status);
+	const searchValue = useSelector((state: RootState) => state.filterSlice.searchValue);
 	async function fetchData() {
 		//@ts-ignore
 		dispatch(fetchItems());
@@ -27,6 +31,8 @@ const AllItems: React.FC<HomeProps> = ({ searchValue }) => {
 	useEffect(() => {
 		fetchData();
 	}, []);
+
+
 	const filtredOnTitle = items.filter((obj: any) => {
 		const filtredTitle = obj.title.toLowerCase().includes(searchValue.toLowerCase());
 		if (filtredTitle) {
@@ -43,7 +49,9 @@ const AllItems: React.FC<HomeProps> = ({ searchValue }) => {
 		else {
 			return false;
 		}
-	})
+	});
+
+	
 	const filtredArray = [...filtredOnTitle, ...filtredOnDesc];
 	const getUnique = (arr) => {
 		return arr.filter((el, ind) => ind === arr.indexOf(el));
@@ -51,6 +59,7 @@ const AllItems: React.FC<HomeProps> = ({ searchValue }) => {
 	const filtred = getUnique(filtredArray);
 	return (
 		<>
+			<SearchInp />
 			<h2>Results : {filtred.length}</h2>
 			<hr />
 			<div className='container'>

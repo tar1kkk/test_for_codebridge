@@ -6,17 +6,13 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import { useState } from 'react';
 
 
 const App = () => {
-  const [searchValue, setSearchValue] = useState('');
-
   return (
     <div className='App'>
-      <SearchInp searchValue={searchValue} setSearchValue={setSearchValue} />
       <Routes>
-        <Route path='/' element={<AllItems searchValue={searchValue} />} />
+        <Route path='/' element={<AllItems />} />
         <Route path="/item/:id" element={<Item />} />
       </Routes>
     </div >
