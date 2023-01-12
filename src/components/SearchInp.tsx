@@ -1,4 +1,5 @@
 import React from 'react';
+import TextField from '@mui/material/TextField';
 
 type SearchInpProps = {
 	setSearchValue: (e: string) => void;
@@ -7,7 +8,8 @@ type SearchInpProps = {
 const SearchInp: React.FC<SearchInpProps> = ({ setSearchValue }) => {
 	return (
 		<div>
-			<input onChange={(e) => setSearchValue(e.target.value)} />
+			<p>Filter by keywords</p>
+			<TextField id="outlined-basic" label="Search" variant="outlined" onChange={(e) => setSearchValue(e.target.value)} />
 		</div>
 	);
 }

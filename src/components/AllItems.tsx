@@ -44,39 +44,48 @@ const AllItems: React.FC<HomeProps> = ({ searchValue }) => {
 			return false;
 		}
 	})
-	const filtred = [...filtredOnTitle, ...filtredOnDesc];
+	const filtredArray = [...filtredOnTitle, ...filtredOnDesc];
+	const getUnique = (arr) => {
+		return arr.filter((el, ind) => ind === arr.indexOf(el));
+	};
+	const filtred = getUnique(filtredArray);
 	return (
-		<div className='container'>
-			{status === 'loading' ? <CircularIndeterminate /> :
-				filtred.map((item: any, index: number) => (
-					<Card className='card' key={index}>
-						<CardContent>
-							<Typography gutterBottom variant="h5" component="div" >
-								{item.title}
-								<Highlighter
-									highlightClassName="YourHighlightClass"
-									searchWords={[searchValue]}
-									autoEscape={true}
-									textToHighlight={item.title}
-								/>
-							</Typography>
-							<Typography variant="body2" color="text.secondary">
-								{item.body}
-								<Highlighter
-									highlightClassName="YourHighlightClass"
-									searchWords={[searchValue]}
-									autoEscape={true}
-									textToHighlight={item.body}
-								/>
-							</Typography>
-						</CardContent>
-						<CardActions>
-							<Link to={`/item/${item.id}`}><Button size="small">Learn More</Button></Link>
-						</CardActions>
-					</Card>
-				))
-			}
-		</div>
+		<>
+			<h2>Results : {filtred.length}</h2>
+			<hr />
+			<div className='container'>
+				{status === 'loading' ? <CircularIndeterminate /> :
+					filtred.map((item: any, index: number) => (
+						<Card className='card' key={index}>
+							<CardContent>
+								<Typography gutterBottom variant="h5" component="div" >
+									{item.title}
+									<Highlighter
+										highlightClassName="YourHighlightClass"
+										searchWords={[searchValue]}
+										autoEscape={true}
+										textToHighlight={item.title}
+									/>
+								</Typography>
+								<Typography variant="body2" color="text.secondary">
+									{item.body}
+									<Highlighter
+										highlightClassName="YourHighlightClass"
+										searchWords={[searchValue]}
+										autoEscape={true}
+										textToHighlight={item.body}
+									/>
+								</Typography>
+							</CardContent>
+							<CardActions>
+								<Link to={`/item/${item.id}`}><Button size="small">Learn More</Button></Link>
+							</CardActions>
+						</Card>
+					))
+				}
+			</div>
+
+		</>
 	);
 }
 

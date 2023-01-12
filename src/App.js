@@ -13,7 +13,7 @@ const App = () => {
   const [searchValue, setSearchValue] = useState('');
 
   return (
-    <div>
+    <div className='App'>
       <SearchInp searchValue={searchValue} setSearchValue={setSearchValue} />
       <Routes>
         <Route path='/' element={<AllItems searchValue={searchValue} />} />
